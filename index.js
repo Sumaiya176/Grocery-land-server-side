@@ -7,9 +7,8 @@ const ObjectId = require('mongodb').ObjectID;
 require('dotenv').config()
 const port = process.env.PORT || 5050;
 
-
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.2ijdq.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
@@ -22,6 +21,7 @@ app.get('/', (req, res) => {
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
+  console.log(err)
   const collection = client.db("shop").collection("groceries");
   const itemCollection = client.db("shop").collection("items");
     
