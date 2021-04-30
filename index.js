@@ -28,7 +28,6 @@ client.connect(err => {
         collection.find({})
         .toArray((err, items) => {
             res.send(items)
-            //console.log('form databasegfgvjbj', items)
         })
     })
 
@@ -37,17 +36,14 @@ client.connect(err => {
       collection.find({_id: ObjectId(req.params.id)})
       .toArray((err, items) => {
           res.send(items[0])
-          //console.log('form database', items)
       })
   })
 
 
     app.post('/addProduct', (req, res) => {
         const product = req.body;
-        //console.log('added product', product)
         collection.insertOne(product)
         .then(result => {
-            //console.log('added product', result.insertedCount)
             res.send(result.insertedCount > 0)
         })
     })
@@ -59,6 +55,8 @@ client.connect(err => {
         //console.log(result)
       })
     })
+
+
 
     // Another db collection for order
     app.post('/addItem', (req, res) => {
@@ -72,10 +70,10 @@ client.connect(err => {
     })
 
   app.get('/item/:id', (req, res) => {
+    console.log(req)
   itemCollection.find({_id: ObjectId(req.params.id)})
   .toArray((err, documents) => {
       res.send(documents[0])
-      //console.log('form database', documents)
   })
 })
 
